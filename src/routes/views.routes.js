@@ -33,7 +33,7 @@ viewsRoute.get("/realtimeproducts", (req, res) => {
   })
   
   // vista de productos en handlebars con boton comprar
-  viewsRoute.get("/products", async (req, res) => {
+  viewsRoute.get("/products", AuthMdw, async (req, res) => {
     const { page = 1, limit = 20 , sort , filter = true} = req.query
     try {
 
@@ -87,7 +87,7 @@ viewsRoute.get("/realtimeproducts", (req, res) => {
   });
 
 //Vista de carrito interactiva con productos (probando que se podía hacer en handlebars, actualiza carrito cada vez que renderiza pagina)
-  viewsRoute.post("/products/api/cart/:cid/product/:pid", async (req, res) => {
+  viewsRoute.post("/products/api/cart/:cid/product/:pid",AuthMdw, async (req, res) => {
     try {
       const pid = req.params.pid;
       const cid = req.params.cid
@@ -117,7 +117,7 @@ viewsRoute.get("/realtimeproducts", (req, res) => {
   })
 
 //Vista de carrito con ruta GET como pide el desafio
-  viewsRoute.get("/cart/:cid", async (req, res) => {
+  viewsRoute.get("/cart/:cid",AuthMdw, async (req, res) => {
     try {
       const cid = req.params.cid
       const cart = await cartModel.find({_id : cid}).populate("products.product",{title: 1, price: 1,stock:1, code: 1, description:1});
