@@ -9,6 +9,7 @@
 <h5 style="text-align:center" >Crear archivo .env con misma variable de entorno que entregas previas</h5> 
 <br>
 <br>
+<h5 style="text-align:center" >Listado de rutas sobre las que se trabajo para la entrega y comentarios</h5> 
 
 | METODO             | RUTA | DESCRIPCION | COMMENTARIOS
 | :---------------- | :------: | :------: | :------: |
