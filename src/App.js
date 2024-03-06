@@ -1,4 +1,3 @@
-
 import 'dotenv/config'
 import mongoose from 'mongoose';
 import handlebars from "express-handlebars";
@@ -6,12 +5,15 @@ import path from "path"
 import {Server} from "socket.io"
 import displayRoutes from 'express-routemap';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import mongoStore from 'connect-mongo';
 
 
 //importación de rutas persistencia archivos locales
 import cartRoute from "./routes/cart.routes.js";
 import prodRoute from "./routes/products.routes.js";
 import viewsRoute from "./routes/views.routes.js";
+import sessionRoute from './routes/session.routes.js';
 import ProductManager from "./dao/filesystem/productManager.js";
 
 
@@ -39,11 +41,23 @@ mongoose.connect(process.env.DB_CNN)
     .then(() => console.log('Conectado a Mongo Exitosamente'))
     .catch(() => console.log('Error al conectarse a la base de datos'))
 
+const HASH_KOOKIE = "pepepepe"
 
-// MIDDLEWARE
+// MIDDLEWARE - configs
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cookieParser())
+app.use(cookieParser(HASH_KOOKIE)) 
+app.use(session({
+  store: mongoStore.create({
+      mongoUrl: process.env.DB_CNN,
+      mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
+      ttl: 60 * 3500,
+    }),
+    secret: HASH_KOOKIE,
+    resave: false,
+    saveUninitialized: false,
+  })
+)
 
 
 // RUTAS ESTATICAS PARA VIEWS
@@ -121,6 +135,6 @@ app.set("view engine", "handlebars")
 app.use("/api/products", prodRoute);
 app.use("/api/cart", cartRoute)
 app.use("/", viewsRoute);
-
+app.use("/api/session", sessionRoute);
 
 const manager = new ProductManager()

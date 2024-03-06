@@ -2,6 +2,7 @@ import { Router } from "express";
 import { MongoCartManager } from "../dao/db/cartManager.js"
 import {productModel} from "../dao/models/product.model.js"
 import { cartModel } from "../dao/models/cart.model.js";
+import AuthMdw from "../middleware/auth.middleware.js";
 
 
 const viewsRoute = Router()
@@ -141,6 +142,33 @@ viewsRoute.get("/realtimeproducts", (req, res) => {
       return res.json({status: "failed", error: error.message})}
     }) 
 
+
+    /* viewsRoute.get("/api/cookie", async (req, res) => {
+      try {
+        const cookie = req.cookies
+        res.render("cookie", 
+        {cookie})
+      } catch (error) {
+        return res.json({status: "failed", error: error.message})
+      }
+    }) */
+    
+    viewsRoute.get("/login",  async (req, res) => {
+     res.render("login",{})
+    })
+
+    viewsRoute.get("/register", async (req, res) => {
+     res.render("register",{})
+    })
+
+    // TODO: aca viene el middleware de autenticacion
+    viewsRoute.get("/profile", AuthMdw, async (req, res) =>{
+      const user = req.session.user
+
+      res.render("profile",{
+        user,
+      })
+    })
     
 export default viewsRoute;
 
