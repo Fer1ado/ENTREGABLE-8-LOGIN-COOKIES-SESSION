@@ -6,7 +6,34 @@
 <h3  style="text-align:center" >----> TESTING <---</h3> 
 
 <br> 
+<h5 style="text-align:center" >Crear archivo .env con misma variable de entorno que entregas previas</h5> 
 <br>
+<br>
+
+| METODO             | RUTA | DESCRIPCION | COMMENTARIOS
+| :---------------- | :------: | :------: | :------: |
+| GET       |   localhost:8080/login   | vista de logín en hbs |  no requiere autenticación |
+| POST            |    localhost:8080/register    | vista de registro de nuevo usuario en hbs  | no requiere autenticación |
+| GET  |  localhost:8080/profile    |  vista de perfil de usuario registrado en hbs | requiere autenticación |
+| GET   |  localhost:8080/api/session/login     | endpoint de manejo de payload de login | espera un body con los campos detallados en el Model de usuario |
+| GET |  localhost:8080/api/session/logout   | endpoint de destrucción de session | evita que se pueda seguir navegando por las secciones que requieren autenticación |
+| POST |  localhost:8080/api/session/register       | endpoint de manejo de payload de register | redirecciona a la pantalla de login cuando se completa el registro de usuario |
+| GET |  localhost:8080/products  | ruta view de products con mongoose-paginate y sorting por precio| requiere autenticación |
+| POST |  localhost:8080/products/api/cart/:cid/product/:pid   | prueba de manipulacion de productos en carrito linkeado al view de products-paginate | requiere autenticación |
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+---
+
+<h3  style="text-align:center" >----> PREVIOS <---</h3> 
 
 
 | METODO             | RUTA | DESCRIPCION | COMMENTARIOS
@@ -71,7 +98,6 @@ nextLink: Link directo a la página siguiente (null si hasNextPage=false)
 
 ---
 
-<h3  style="text-align:center" >----> PREVIOS <---</h3> 
 
    Desafío "Primera práctica de integración sobre tu ecommerce": 
    En este trabajo debemos hacer la conexión de nuestro proyecto con una base de datos: 
